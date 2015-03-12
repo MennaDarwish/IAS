@@ -20,7 +20,7 @@ router.route('/')
   .post(urlEncoded, publisherBuilder, function(req, res) {
     var publisher = req.body.publisher;
     Publisher.create(publisher).then(function(createdPublisher) {
-      res.status(201).json({status: 'created'});
+      res.status(201).json({status: 'created', publisherId: createdPublisher.dataValues.id});
     }, function(err) {
       res.status(404).json({status: 'ERROR', message: 'Something went wrong ' + err});
     });
