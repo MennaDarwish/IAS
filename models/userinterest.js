@@ -19,4 +19,4 @@ var fetchUserInterests = function (userID) {
 })
 }
 
-exports.fetchInterests = fetchInterests;
+exports.fetchUserInterests = fetchUserInterests;
