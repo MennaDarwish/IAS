@@ -9,8 +9,9 @@
   "test": {
     "username": "root",
     "password": null,
-    "database": "database_test",
+    "database": "adx_test",
     "host": "127.0.0.1",
+    "logging": false,
     "dialect": "mysql"
   },
   "production": {
