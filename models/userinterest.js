@@ -12,3 +12,11 @@ module.exports = function(sequelize, DataTypes) {
   });
   return UserInterest;
 };
+
+var fetchUserInterests = function (userID) {
+	UserInterest.findAll({ where: { userId: 'userID' } }).then(function(interests) {
+  return interests;
+})
+}
+
+exports.fetchInterests = fetchInterests;
