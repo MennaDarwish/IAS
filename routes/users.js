@@ -14,15 +14,14 @@ var userBuilder = function(req, res, next) {
     gender: req.body.gender,
     publisherId: req.body.publisherId
   };
-  if(!user.publisherId) return res.status(400).json({ status: 'ERROR', message: 'The request body does not have a publisherId'}); 
   req.body.user = user;
   next();
 }
 router.route('/')
   .post(jsonParser, userBuilder, function(req, res) {
     var user = req.body.user;
-    User.create(user).then( function(user) {
-        res.status(201).json({status: 'created', userId: user.dataValues.id});  
+    User.create(user).then( function(createdUser) {
+        res.status(201).json({status: 'created', userId: createdUser.dataValues.id});  
     }, function(err) {
       res.status(400).json({status: 'ERROR', message: 'Something went wrong ' + err});
     });   
@@ -31,8 +30,8 @@ router.route('/')
 router.route('/:id')
   .get(function(req, res) {
     User.find(req.params.id).then(function(user) {
-      if(!user) res.sendStatus(404);
-      res.status(200).json(user);
+      if(!user) return res.sendStatus(404);
+      res.status(200).json(user.dataValues);
     },function(err) {
       res.status(400).json({status: 'ERROR', message: 'Something went wrong ' + err});
     });
