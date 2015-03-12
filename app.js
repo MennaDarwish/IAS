@@ -7,6 +7,4 @@ var publishersRoute = require('./routes/publishers');
 app.use('/users', usersRoute);
 app.use('/publishers', publishersRoute);
 
-app.listen(3000, function(){
-   console.log('Listening on port 3000');
- });
+module.exports = app;
