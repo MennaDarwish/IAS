@@ -1,0 +1,12 @@
+var express = require('express');
+var app = express();
+
+var usersRoute = require('./routes/users');
+var publishersRoute = require('./routes/publishers');
+
+app.use('/users', usersRoute);
+app.use('/publishers', publishersRoute);
+
+app.listen(3000, function(){
+   console.log('Listening on port 3000');
+ });
