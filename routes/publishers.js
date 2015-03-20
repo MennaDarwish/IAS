@@ -25,5 +25,11 @@ router.route('/')
       res.status(404).json({status: 'ERROR', message: 'Something went wrong ' + err});
     });
   });
+router.route('/sign_up')
+  .get(function(req, res) {
+    res.render('layout', {
+      title : 'Publisher Sign Up'
+    })
+  });
 
 module.exports = router;

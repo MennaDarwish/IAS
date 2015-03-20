@@ -1,0 +1,24 @@
+doctype 
+html
+	head
+		title #{title} - Intelligent Ad Server
+		link(rel='stylesheet', href = '../public/stylesheets/style.css')
+	body	 
+		form
+			fieldset.account-info
+				label Email
+					input(type='text', name='publisheremail', placeholder='name@domain.com', required='')
+				label Password
+					input(type='password', name='password', placeholder='password', required='')
+			fieldset.account-action
+				input.btn(type='submit', name='submit', value='Sign Up')
+
+		
+		script.
+			function validateForm() {
+				var x = document.forms['publishermail'].value;
+				if(x==null || x=='') {
+					alert('Please fill out an email address');
+					return false;
+				}
+			}
