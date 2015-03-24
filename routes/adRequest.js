@@ -1,9 +1,20 @@
 var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
+var satelize = require('satelize');
+
 var bodyParsedUrl = bodyParser.urlencoded({ extended: true });     // to support URL-encoded bodies
 router.route('/')
 .post(bodyParsedUrl,  function(request, response){ //post request from publisher containing user and ad info
+
+  var ip =  request.header('x-forwarded-for') ; // ip address of the user
+  satelize.satelize({ip:ip}, function(err, geoData) {
+  
+  var obj = JSON.parse(geoData);//wrap the data in js object
+  var userLocation = obj.country;
+  
+   
+});
 	
 	//var userID = request.body.userID
 	var adSize = request.body.adSize;
