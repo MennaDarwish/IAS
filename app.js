@@ -11,5 +11,7 @@ var adRequest = require('./routes/adRequest');
 app.use('/adRequest',adRequest);
 app.use('/users', usersRoute);
 app.use('/publishers', publishersRoute);
+app.use('/actiontypes', actionTypesRoute);
+app.use('/useractions', userActionsRoute);
 
 module.exports = app;
