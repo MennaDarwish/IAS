@@ -48,4 +48,70 @@ describe('ActionTypes Route', function() {
 				}).end(done);
 		});
 	});
+	
+	describe('Fetching an action type', function(done) {
+		beforeEach(function(done) {
+			db.sequelize.sync({force: true}).then(function() {
+				db.Publisher.create({}).then(function() {
+					db.create({action_name: 'FetcherTester', publisherId:1});
+					done();
+				});
+			});
+		});
+		it('Returns status code 200 if the record was found', function(done) {
+			request(app)
+				.get('/actiontypes/1')
+				.expect(200, done);
+		});
+		it('Returns status code 404 if the record was not found', function(done) {
+			request(app)
+				.get('/actiontypes/30')
+				.expect(404, done);
+		});
+	});
+	describe('Updating an action type', function(done){
+		beforeEach(function(done) {
+			db.sequelize.sync({force: true}).then(function() {
+				db.Publisher.create({}).then(function() {
+					db.create({action_name: 'UpdatingTester', publisherId:1});
+					done();
+				});
+			});
+		});
+		it('Returns status message "updated" if record is found', function(done) {
+			request(app)
+				.put('/actiontypes/1')
+				.send('action_name=SHARE&action_weight=4')
+				.expect(function(response) {
+					response.body.status.should.be.equal('updated');
+				}).end(done);
+		});
+		it('Returns status code 404 if the record was not found', function(done) {
+			request(app)
+				.put('/actiontypes/30')
+				.expect(404, done);
+		});
+	});
+	describe('Deleting an action type', function(done) {
+		beforeEach(function(done) {
+			db.sequelize.sync({force: true}).then(function() {
+				db.Publisher.create({}).then(function() {
+					db.create({action_name: 'UpdatingTester', publisherId:1});
+					done();
+				});
+			});
+		});
+		it('Returns status message "deleted" if record is found', function(done) {
+			request(app)
+				.delete('/actiontypes/1')
+				.expect(function(response) {
+					response.body.status.should.be.equal('deleted');
+				}).end(done);
+		});
+		it('Returns status code 404 if the record was not found', function(done) {
+			request(app)
+				.delete('/actiontypes/30')
+				.expect(404, done);
+		});
+	});
 });
