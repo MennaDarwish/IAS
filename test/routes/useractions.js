@@ -49,4 +49,57 @@ describe('UserActions Route', function() {
 				}).end(done);
 		});
 	});
+	describe('Fetching a user action', function(done) {
+		beforeEach(function(done) {
+			db.sequelize.sync({force: true}).then(function() {
+				var action;
+				db.Publisher.create({}).then(function(publisher) {
+				return db.ActionType.create({publisherId: publisher.dataValues.id});		
+				}).then(function(actionType){
+				action = actionType;
+				return db.User.create({publisherId: actionType.dataValues.publisherId});
+				}).then(function(user){
+				return db.UserAction.create({userId: user.dataValues.id, actionTypeId: action.dataValues.id});
+				})
+			});
+		});
+		it('Returns status code 200 if the record was found', function(done) {
+			request(app)
+				.get('/useractions/1')
+				.expect(200, done);
+		});
+		it('Returns status code 404 if the record was not found', function(done) {
+			request(app)
+				.get('/useractions/30')
+				.expect(404, done);
+		});
+	});
+	
+	describe('Deleting a user action', function(done) {
+		beforeEach(function(done) {
+			db.sequelize.sync({force: true}).then(function() {
+				var action;
+				db.Publisher.create({}).then(function(publisher) {
+				return db.ActionType.create({publisherId: publisher.dataValues.id});		
+				}).then(function(actionType){
+				action = actionType;
+				return db.User.create({publisherId: actionType.dataValues.publisherId});
+				}).then(function(user){
+				return db.UserAction.create({userId: user.dataValues.id, actionTypeId: action.dataValues.id});
+				})
+			});
+		});
+		it('Returns status message "deleted" if record is found', function(done) {
+			request(app)
+				.delete('/useractions/1')
+				.expect(function(response) {
+					response.body.status.should.be.equal('deleted');
+				}).end(done);
+		});
+		it('Returns status code 404 if the record was not found', function(done) {
+			request(app)
+				.delete('/useractions/30')
+				.expect(404, done);
+		});
+	});
 });
