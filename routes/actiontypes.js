@@ -24,6 +24,41 @@ router.route('/')
   	});
   });
 
+router.route('/:id')
+  .get(function(req, res) {
+    ActionType.find(req.params.id).then(function(actionType) {
+      if(!actionType) return res.sendStatus(404);
+      res.status(200).json(actionType.dataValues);
+    },function(err) {
+      res.status(404).json({status: 'ERROR', message: 'Something went wrong ' + err});
+    });
+  });
+
+router.route('/:id')
+  .put(function(req, res) {
+    ActionType.find(req.params.id).then(function(oldActionType) {
+      if(!oldActionType) return res.sendStatus(404);
+    }, function(err) {
+      res.status(404).json(status: 'ERROR', message: 'Something went wrong ' + err});
+    });
+    oldActionType.setDataValues('action_name', req.body.action_name);
+    oldActionType.save;
+    oldActionType.setDataValues('action_weight', req.body.action_weight);
+    oldActionType.save;
+    return res.status(200).json{(status: 'updated')};
+  });
+router.route('/:id')
+  .delete(function(req,res) {
+    ActionType.find(req.params.id).then(function(toBeDeletedActionType) {
+      if(!toBeDeletedActionType) return res.sendStatus(404);
+    }, function(err) {
+      res.status(404).json({status: 'ERROR', message: 'Something went wrong ' + err});
+    });
+    toBeDeletedActionType.destroy();
+    return res.status(200).json({status: 'deleted'});
+  });
+
+
   module.exports = router;
 
   
