@@ -1,7 +1,7 @@
 "use strict"
 module.exports = function(sequelize, DataTypes) {
 	var Click = sequelize.define("Click", {
-		redirectUrl: DataTypes.STRING
+		
 	}, {
 		classMethods: {
 			associate: function(models) {
