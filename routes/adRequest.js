@@ -2,24 +2,25 @@ var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
 var bodyParsedUrl = bodyParser.urlencoded({ extended: true });     // to support URL-encoded bodies
+var Impression = require('../models/index.js').Impression;
+
 router.route('/')
 .post(bodyParsedUrl,  function(request, response){ //post request from publisher containing user and ad info
 	
-	//var userID = request.body.userID
+  //var userID = request.body.userID
 	var adSize = request.body.adSize;
-	var offeredPrice = request.body.offeredPrice;
+	//var offeredPrice = request.body.offeredPrice;
+  var UserId = request.body.userId;
+  var PublisherId = request.body.publisherId;
 	
 
 	request.on('finish', function(){ //when request is done sending, start forwarding to DSP
-
-		var data = { //data that will be sent in the request
-      
+    var data = { //data that will be sent in the request to dsp
       size: size,
       //userID : userID
       //offeredPrice: offeredPrice,
-      interests: //var interests = fetch user interests
-
-    };
+      //interests: //var interests = fetch user interests.
+      };
 
     var options = { // request options
     host: //DSP,
@@ -34,21 +35,33 @@ router.route('/')
 		
 		var req = http.request(options, function(res) {
     //res.setEncoding('utf8');
-
     res.on('data', function (chunk) {
-
-        var body += chunk; //save the response from the DSP in an object
+        var adId = res.body.adId, 
+        var ad = res.body.ad,
+        var body += chunk;  //save the response from the DSP in an object
     });
 });
 
-req.write(data);
+req.write(data); // send data to dsp
 req.end();
 
 
-	});
-	response.send(body);  //send the DSP's response back to the publisher
+});
+	
+  var impression = {
+    publisherId : PublisherId,
+    userId : UserId,
+    adId : adId;
 
-
+  }
+  //Creating Impression
+  Impression.create(impression).then(function(createdImpression){
+      res.status(201).json({status : 'created' , impressionId: createdImpression.dataValues.id});
+    }), function(err){
+      res.status(400).json({status: 'Error', message : 'Something went wrong ' + err});
+    })
+ //send the DSP's response back to the publisher
+  response.send(body);
 });
 
 module.exports = router;

@@ -1,12 +1,15 @@
 "use strict" ; 
 module.exports = function(sequelize, DataTypes) {
   var Impression = sequelize.define("Impression", {
-    // impression attributes 
+        //width: DataTypes.INTEGER,
+        //height: DataTypes.INTEGER,
+        redirectUrl: DataTypes.STRING,
+        //imageUrl: DataTypes.STRING,
   }, {
     classMethods: {
       associate: function(models) {
         Impression.belongsTo(models.User, {foreignKey: 'userId'});
-        Impression.belongsTo(model.Ad , {forgein: 'adID'});
+        Impression.belongsTo(model.Ad , {forgein: 'adId'});
 
       }
     }
