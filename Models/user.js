@@ -10,6 +10,7 @@ module.exports = function(sequelize, DataTypes) {
       associate: function(models) {
         User.belongsTo(models.Publisher, {foreignKey:'publisherId' });
         User.belongsToMany(models.Interest, {through: models.UserInterest, foreignKey: 'userId'});
+        User.belongsTo(models.Impression , {forgeinKey:'impressionId'});
       }
     }
   });
