@@ -4,8 +4,7 @@ module.exports = function(sequelize, DataTypes) {
 	}, {
 		classMethods: {
 			associate: function(models) {
-				Click.belongsTo(models.Ad, {foreignKey: 'adId'});
-				Click.belongsTo(models.User, {foreignKey: 'userId'});
+				Click.belongsTo(models.Impression, {foreignKey: 'impressionId'});
 			}
 		}
 	});
