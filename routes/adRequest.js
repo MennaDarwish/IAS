@@ -1,10 +1,11 @@
 var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
-var bodyParsedUrl = bodyParser.urlencoded({ extended: true });     // to support URL-encoded bodies
+var bodyParsedUrl = bodyParser.urlencoded({ extended: true }); 
+var auth = require('../auth.js')    // to support URL-encoded bodies
 
 router.route('/')
-.post(bodyParsedUrl,  function(request, response){ //post request from publisher containing user and ad info
+.post(bodyParsedUrl, auth, function(request, response){ //post request from publisher containing user and ad info
 	
 	//var userID = request.body.userID
 	var adSize = request.body.adSize;
