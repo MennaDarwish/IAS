@@ -7,15 +7,12 @@ module.exports = function(sequelize, DataTypes) {
         height: DataTypes.INTEGER,
         redirectUrl: DataTypes.STRING,
         //imageUrl: DataTypes.STRING,
-  
-  }, {
+   }, {
     classMethods: {
       associate: function(models) {
         Impression.belongsTo(models.User, {foreignKey: 'userId'});
         Impression.belongsTo(models.Publisher , {forgeinKey: 'publisherId'}); //check
-
-        //Impression.belongsTo(model.Ad , {forgein: 'adId'});
-
+      //Impression.belongsTo(model.Ad , {forgein: 'adId'});
       }
     }
   });
