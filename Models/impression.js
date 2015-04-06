@@ -9,7 +9,9 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         Impression.belongsTo(models.User, {foreignKey: 'userId'});
-        Impression.belongsTo(model.Ad , {forgein: 'adId'});
+        Impression.belongsTo(models.Publisher , {forgeinKey: 'publisherId'});
+        
+        //Impression.belongsTo(model.Ad , {forgein: 'adId'});
 
       }
     }

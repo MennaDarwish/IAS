@@ -1,14 +1,15 @@
 var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
-var bodyParsedUrl = bodyParser.urlencoded({ extended: true });     // to support URL-encoded bodies
+//var bodyParsedUrl = bodyParser.urlencoded({ extended: true });     // to support URL-encoded bodies
 var Impression = require('../models/index.js').Impression;
+var http = require('http');
 
 router.route('/')
 .post(bodyParsedUrl,  function(request, response){ //post request from publisher containing user and ad info
 	
   //var userID = request.body.userID
-	var adSize = request.body.adSize;
+	//var adSize = request.body.adSize;
 	//var offeredPrice = request.body.offeredPrice;
   var UserId = request.body.userId;
   var PublisherId = request.body.publisherId;
@@ -16,8 +17,8 @@ router.route('/')
 
 	request.on('finish', function(){ //when request is done sending, start forwarding to DSP
     var data = { //data that will be sent in the request to dsp
-      size: size,
-      //userID : userID
+      //size: size,
+      userID : UserID
       //offeredPrice: offeredPrice,
       //interests: //var interests = fetch user interests.
       };
@@ -56,7 +57,7 @@ req.end();
   }
   //Creating Impression
   Impression.create(impression).then(function(createdImpression){
-      res.status(201).json({status : 'created' , impressionId: createdImpression.dataValues.id});
+      res.status(201).json({status : 'created'});
     }), function(err){
       res.status(400).json({status: 'Error', message : 'Something went wrong ' + err});
     })
