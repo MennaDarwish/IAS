@@ -10,13 +10,8 @@ var router = express.Router();
 var clickInfo = function(req, res, next){
 		var thisClick = {impressionId: req.body.impressionId;}
 		req.body.click = thisClick;
-	
 	next();
 }
-
-
-
-
 
 router.route('/')
 .post(urlEncoded, clickInfo, function(req, res) {
@@ -30,11 +25,7 @@ router.route('/')
 		res.sendStatus(404).json({status: 'ERROR', message: 'Something went wrong' + err});
 	});
 
-
 }, function(err) {
-	res.status(404).json({status: 'ERROR', message: 'Something went wrong' + err});
-
-	
-
+	res.status(404).json({status: 'ERROR', message: 'Something went wrong' + err});	
 });
 
