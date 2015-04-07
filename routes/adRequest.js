@@ -69,7 +69,7 @@ req.end();
  }, function(err){
   res.sendStatus(404).json({status: 'Error', message: 'Something went wrong' + err});
  });
-  var uniqueUrl = '/clicks/?' + querystring.stringify({impressionId: newImpressionId, ';', ':'}) //query string to act as a unique url to be assigned as an href to the link tag of the ad
+  var uniqueUrl = '/clicksRoute/?' + querystring.stringify({impressionId: newImpressionId, ';', ':'}) //query string to act as a unique url to be assigned as an href to the link tag of the ad
   response.send(body);
 });
 
