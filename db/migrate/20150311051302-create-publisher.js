@@ -17,6 +17,12 @@ module.exports = {
       email: {
         type: DataTypes.STRING
       },
+      username: {
+        type: DataTypes.STRING
+      },
+      password: {
+        type: DataTypes.STRING
+      },
       channel: {
         type: DataTypes.STRING
       },
