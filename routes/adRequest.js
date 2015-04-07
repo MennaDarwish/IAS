@@ -5,7 +5,7 @@ var bodyParsedUrl = bodyParser.urlencoded({ extended: true });
 var auth = require('../auth.js')    // to support URL-encoded bodies
 
 router.route('/')
-.post(bodyParsedUrl, auth, function(request, response){ //post request from publisher containing user and ad info
+.post(bodyParsedUrl, passport.authenticate('localapikey', { session: false }), function(request, response){ //post request from publisher containing user and ad info
 	
 	//var userID = request.body.userID
 	var adSize = request.body.adSize;

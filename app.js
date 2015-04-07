@@ -5,10 +5,10 @@ var usersRoute = require('./routes/users');
 var publishersRoute = require('./routes/publishers');
 var querystring = require('querystring');
 var adRequest = require('./routes/adRequest');
-
-
+var auth = require('./auth.js');
 
 app.configure(function() {
+	app.use(passport.initialize());
 	app.set('views', __dirname + '/views');
 	app.set('view engine', 'jade');
 	app.use(morgan('dev'));
@@ -16,7 +16,6 @@ app.configure(function() {
 	app.use('/adRequest',adRequest);
 	app.use('/users', usersRoute);
 	app.use('/publishers', publishersRoute);
-	app.use(passport.initialize());
 })
 
 module.exports = app;

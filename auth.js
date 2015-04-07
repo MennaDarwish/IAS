@@ -17,12 +17,4 @@ passport.use(new LocalStrategy(
   }
   ));
 
-module.exports = {
-  authenticate: function() {
-    return passport.authenticate('localapikey', { failureRedirect: '#', failureFlash: true });
-  }
-  ensureAuthenticated: function(req, res, next) {
-    if (req.isAuthenticated()) { return next(); }
-    res.redirect('#');
-  }
-}
+module.exports = passport;

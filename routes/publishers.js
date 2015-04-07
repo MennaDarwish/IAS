@@ -22,7 +22,7 @@ var publisherBuilder = function(req, res, next) {
 }
 
 router.route('/')
-  .post(urlEncoded, publisherBuilder, auth, function(req, res) {
+  .post(urlEncoded, publisherBuilder, passport.authenticate('localapikey', { session: false }), function(req, res) {
     var publisher = req.body.publisher;
     Publisher.create(publisher).then(function(createdPublisher) {
       res.status(201).json({status: 'created', publisherId: createdPublisher.dataValues.id});
