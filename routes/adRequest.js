@@ -14,9 +14,9 @@ router.route('/')
     var PublisherId = request.body.publisherId;
       //request.on('finish', function(){ //when request is done sending, start forwarding to DSP
     var data = { //data that will be sent in the request to dsp
-      width : width;
-      userId : UserId;
-      height : heigth;
+      width : width,
+      userId : UserId,
+      height : heigth
         //interests: fetch user interests.
     };
 
@@ -33,11 +33,11 @@ router.route('/')
 
   		  // http request to send data to DSP
   	var req = http.request(options, function(res) {
-      //res.setEncoding('utf8');
+      var body;
       res.on('data', function (chunk) { //resp data is sent in the response from dsp
-          var body += chunk; 
-          var adId = chunk.adId,
-          var price = chunk.price, 
+          body += chunk; 
+          var adId = chunk.adId;
+          var price = chunk.price; 
           var ad = chunk.ad; //save the response from the DSP in an object
       });
   });
@@ -48,14 +48,14 @@ router.route('/')
     var impression = {
       publisherId : PublisherId,
       userId : UserId,
-      adId : adId;
+      adId : adId
     }
     //Creating Impression
     Impression.create(impression).then(function(createdImpression){
         res.status(201).json({status : 'created'});
       }), function(err){
         res.status(400).json({status: 'Error', message : 'Something went wrong ' + err});
-      });
+      };
    //send the DSP's response back to the publisher
     response.send(body);
 });
