@@ -1,29 +1,33 @@
 var express = require('express');
 var jade = require('jade');
-var app = express();
-//Routes
-var usersRoute = require('./routes/users');
-var publishersRoute = require('./routes/publishers');
-var actionTypesRoute = require('./routes/actionTypes');
-var userActionsRoute = require('./routes/userActions');
-var adRequest = require('./routes/adRequest');
-var querystring = require('querystring');
-
-var auth = require('./auth.js');
+var passport = require('passport');
 var morgan = require('morgan');
 
-app.use(auth.initialize());
+
+
+var app = express();
+
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.use(morgan('dev'));
+
+
 app.use(express.static(__dirname + '/public'));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+var usersRoute = require('./routes/users');
+var publishersRoute = require('./routes/publishers');
+var express = require('express');
+var querystring = require('querystring');
+var adRequest = require('./routes/adRequest');
+
+
+
 app.use('/adRequest',adRequest);
 app.use('/users', usersRoute);
 app.use('/publishers', publishersRoute);
-app.use('/actiontypes', actionTypesRoute);
-app.use('/useractions', userActionsRoute);
-
-app.listen(3000);
-
 
 module.exports = app;

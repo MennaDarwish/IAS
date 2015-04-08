@@ -4,10 +4,10 @@ html
 		title #{title} - Intelligent Ad Server
 		link(rel='stylesheet', href = '../public/stylesheets/style.css')
 	body	 
-		form(action='publishers', method='post')
+		form(action='sign_up', method='post')
 			fieldset.account-info
 				label Email
-					input(type='text', name='publisheremail', placeholder='name@domain.com', required='')
+					input(type='text', name='username', placeholder='name@domain.com', required='')
 				label Password
 					input(type='password', name='password', placeholder='password', required='')
 			fieldset.account-action
