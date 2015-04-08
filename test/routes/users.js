@@ -2,29 +2,38 @@ var request = require('supertest');
 var app     = require('../../app');
 var db      = require('../../models/index');
 var should  = require('should');
+var uuid = require('node-uuid');
+var id = uuid.v4();
+var secret = uuid.v4();
+var publisher = {
+    name: 'FOO',
+    apikey: id + ':' + secret
+}
 
+var userData = {
+   name: 'FooUser',
+   email: 'user@example.com',
+   birthdate: '1/1/1990',
+   gender: 'male',
+   publisherId: 1,
+   apikey: publisher.apikey
+ }
 describe('Users Route', function() {
   describe('Creating new users', function() {
 
    beforeEach(function(done) {
     //Destroy database before running each test.
-     
      db.sequelize.sync({force: true}).then(function() {
       // Create publisher record which will be used in creating users. 
-      db.Publisher.create({}).then(function() {
+      db.Publisher.create(publisher).then(function() {
+
         done();
        });
      })
 
    })
 
-   var userData = {
-      name: 'FooUser',
-      email: 'user@example.com',
-      birthdate: '1/1/1990',
-      gender: 'male',
-      publisherId: 1
-    }
+
 
     it('Returns 201 status code', function(done){
       
@@ -83,9 +92,9 @@ describe('Users Route', function() {
     });
 
     it('Returns status code 200 if the record was found', function(done){
-     
       request(app)
         .get('/users/1')
+        .send("apikey="+ publisher.apikey)
         .expect(200, done);
 
 

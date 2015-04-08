@@ -47,7 +47,7 @@ describe('Publishers Route', function() {
     it('Returns status message "created"', function(done) {
         
       request(app)
-        .post('/users')
+        .post('/publishers')
         .send('name=FooPublisher&email=publisher@example.com&domain=http://www.publisher.com&channel=Sports')
         .expect(function(response){
           response.body.status.should.be.equal('created');

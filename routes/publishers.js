@@ -21,10 +21,10 @@ var publisherBuilder = function(req, res, next) {
 }
 
 router.route('/')
-  .post(urlEncoded, publisherBuilder, auth.authenticate('localapikey', { session: false }), function(req, res) {
+  .post(urlEncoded, publisherBuilder, function(req, res) {
     var publisher = req.body.publisher;
     Publisher.create(publisher).then(function(createdPublisher) {
-      res.status(201).json({status: 'created', publisherId: createdPublisher.dataValues.id});
+      res.status(201).json({status: 'created', publisherId: createdPublisher.dataValues.id, apikey: createdPublisher.dataValues.apikey});
     }, function(err) {
       res.status(404).json({status: 'ERROR', message: 'Something went wrong ' + err});
     });

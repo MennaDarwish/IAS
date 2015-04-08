@@ -8,11 +8,11 @@ module.exports = {
         primaryKey: true,
         type: DataTypes.INTEGER
       },
-      action_name: {
+      actionName: {
         type: DataTypes.STRING
       },
-      action_weight: {
-        type: DataTypes.INTEGER
+      actionWeight: {
+       type: DataTypes.INTEGER
       },
       publisherId: {
         type: DataTypes.INTEGER,
@@ -34,3 +34,4 @@ module.exports = {
     migration.dropTable("ActionTypes").done(done);
   }
 };
+

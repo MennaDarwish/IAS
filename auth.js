@@ -7,9 +7,8 @@ passport.use(new LocalStrategy(
   function(req, done) {
     process.nextTick(function() {
       Publisher.find({
-          where:{apikey: req.params.apikey}
-      }).then(function(err, publisher) {
-        if(err) { return done(err);}
+          where:{apikey: req}
+      }).then(function(publisher) {
         if(!publisher) {return done(null, false, {message: 'Unknown apikey: '+ apikey});}
         return done(null, publisher);
       });

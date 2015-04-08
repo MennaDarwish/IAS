@@ -3,7 +3,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 var router = express.Router();
-var UserAction = require('../Models/index.js').UserAction;
+var UserAction = require('../models/index.js').UserAction;
 
 var UserActionBuilder = function(req, res, next){
   var userAction = {
@@ -38,11 +38,12 @@ router.route('/:id')
   .delete(function(req,res) {
     UserAction.find(req.params.id).then(function(toBeDeletedUserAction) {
       if(!toBeDeletedUserAction) return res.sendStatus(404);
+      toBeDeletedUserAction.destroy();
+      res.status(200).json({status: 'deleted'});
     }, function(err) {
       res.status(400).json({status: 'ERROR', message: 'Something went wrong ' + err});
     });
-    toBeDeletedUserAction.destroy();
-    return res.status(200).json({status: 'deleted'});
+    
   });
 
 

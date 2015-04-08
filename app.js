@@ -1,13 +1,15 @@
 var express = require('express');
 var jade = require('jade');
 var app = express();
+//Routes
 var usersRoute = require('./routes/users');
 var publishersRoute = require('./routes/publishers');
-var querystring = require('querystring');
+var actionTypesRoute = require('./routes/actionTypes');
+var userActionsRoute = require('./routes/userActions');
 var adRequest = require('./routes/adRequest');
+var querystring = require('querystring');
+
 var auth = require('./auth.js');
-var actionTypesRoute = require('./routes/actiontypes');
-var userActionsRoute = require('./routes/useractions');
 var morgan = require('morgan');
 
 app.use(auth.initialize());
@@ -22,5 +24,6 @@ app.use('/actiontypes', actionTypesRoute);
 app.use('/useractions', userActionsRoute);
 
 app.listen(3000);
+
 
 module.exports = app;
