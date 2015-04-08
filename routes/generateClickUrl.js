@@ -1,5 +1,5 @@
 var Impression = require('../models/index.js').Impression;
-var getClick = function(req, res){
+var getClick = function(req){
 	var UserId = req.body.userId;
 	var PublisherId = req.body.publisherId;
 	var AdId = req.body.adId;

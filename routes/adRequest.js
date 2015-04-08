@@ -71,7 +71,7 @@ req.end();
     })
 
    //send the DSP's response back to the publisher
-   var adHtml = generatedClickUrl.getClick();
+   var adHtml = generatedClickUrl.getClick(req);
   response.send(adHtml);
 });
 
