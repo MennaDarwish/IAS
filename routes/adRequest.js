@@ -6,7 +6,7 @@ var http = require('http');
 
 
 router.route('/')
-  .post(bodyParsedUrl,  function(request, response){ //post request from publisher containing user and ad info
+  .post(bodyParser,  function(request, response){ //post request from publisher containing user and ad info
 
     var width = request.body.width;
     var height = request.body.height;
