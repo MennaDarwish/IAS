@@ -12,7 +12,7 @@ module.exports = {
         type: DataTypes.STRING
       },
       actionWeight: {
-        type: DataTypes.INTEGER
+       type: DataTypes.INTEGER
       },
       publisherId: {
         type: DataTypes.INTEGER,
@@ -34,3 +34,4 @@ module.exports = {
     migration.dropTable("ActionTypes").done(done);
   }
 };
+

@@ -3,10 +3,11 @@ var router = express.Router();
 var bodyParser = require('body-parser');
 var Impression = require('../models/index.js').Impression;
 var http = require('http');
+var auth = require('../auth.js') 
 
 
 router.route('/')
-  .post(bodyParser,  function(request, response){ //post request from publisher containing user and ad info
+  .post(bodyParser, auth.authenticate('localapikey', { session: false }), function(request, response){ //post request from publisher containing user and ad info
 
     var width = request.body.width;
     var height = request.body.height;

@@ -20,6 +20,9 @@ module.exports = {
       channel: {
         type: DataTypes.STRING
       },
+      apikey: {
+        type: DataTypes.STRING
+      },
       createdAt: {
         allowNull: false,
         type: DataTypes.DATE

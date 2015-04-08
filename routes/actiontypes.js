@@ -6,22 +6,22 @@ var router = express.Router();
 var ActionType = require('../models/index.js').ActionType;
 
 var ActionTypeBuilder = function(req, res, next){
-	var actionType = {
-		actionName: req.body.actionName,
-		actionWeight: req.body.actionWeight,
-		publisherId: req.body.publisherId
-	}
-	req.body.actionType = actionType;
-	next();
+  var actionType = {
+    actionName: req.body.actionName,
+    actionWeight: req.body.actionWeight,
+    publisherId: req.body.publisherId
+  }
+  req.body.actionType = actionType;
+  next();
 }
 router.route('/')
   .post(jsonParser, ActionTypeBuilder, function(req, res){
-  	var actionType = req.body.actionType;
-  	ActionType.create(actionType).then(function(createdActionType) {
-  		res.status(201).json({status: 'created', actionTypeId: createdActionType.dataValues.id});
-  	}, function(err){
-  		res.status(404).json({status: 'ERROR', message: 'Something went wrong '+ err});
-  	});
+    var actionType = req.body.actionType;
+    ActionType.create(actionType).then(function(createdActionType) {
+      res.status(201).json({status: 'created', actionTypeId: createdActionType.dataValues.id});
+    }, function(err){
+      res.status(404).json({status: 'ERROR', message: 'Something went wrong '+ err});
+    });
   });
 
 router.route('/:id')
@@ -61,5 +61,3 @@ router.route('/:id')
 
 
   module.exports = router;
-
-  
