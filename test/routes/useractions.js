@@ -33,10 +33,10 @@ describe('UserActions Route', function() {
 		it('Returns the id of the UserAction', function(done) {
 			// Id that will be returned is the ID of the UserAction pair!
 			request(app)
-				.post('useractions')
+				.post('/useractions')
 				.send('userId=123&publisherId=456')
 				.expect(function(response){
-					response.body.publisherId.should.be.above(0).and.be.a.Number
+					response.body.userActionId.should.be.above(0).and.be.a.Number
 				}).end(done);
 		});
 
@@ -52,15 +52,14 @@ describe('UserActions Route', function() {
 	describe('Fetching a user action', function(done) {
 		beforeEach(function(done) {
 			db.sequelize.sync({force: true}).then(function() {
-				var action;
 				db.Publisher.create({}).then(function(publisher) {
-				return db.ActionType.create({publisherId: publisher.dataValues.id});		
-				}).then(function(actionType){
-				action = actionType;
-				return db.User.create({publisherId: actionType.dataValues.publisherId});
-				}).then(function(user){
-				return db.UserAction.create({userId: user.dataValues.id, actionTypeId: action.dataValues.id});
-				})
+					db.User.create({publisherId: publisher.dataValues.id}).then(function(user) {
+						db.ActionType.create({publisherId: publisher.dataValues.id}).then(function(actionType) {
+							db.UserAction.create({actionTypeId: actionType.dataValues.id, userId: user.dataValues.id});
+							done();
+						});
+					});
+				});
 			});
 		});
 		it('Returns status code 200 if the record was found', function(done) {
@@ -78,15 +77,14 @@ describe('UserActions Route', function() {
 	describe('Deleting a user action', function(done) {
 		beforeEach(function(done) {
 			db.sequelize.sync({force: true}).then(function() {
-				var action;
 				db.Publisher.create({}).then(function(publisher) {
-				return db.ActionType.create({publisherId: publisher.dataValues.id});		
-				}).then(function(actionType){
-				action = actionType;
-				return db.User.create({publisherId: actionType.dataValues.publisherId});
-				}).then(function(user){
-				return db.UserAction.create({userId: user.dataValues.id, actionTypeId: action.dataValues.id});
-				})
+					db.User.create({publisherId: publisher.dataValues.id}).then(function(user) {
+						db.ActionType.create({publisherId: publisher.dataValues.id}).then(function(actionType) {
+							db.UserAction.create({actionTypeId: actionType.dataValues.id, userId: user.dataValues.id});
+							done();
+						});
+					});
+				});
 			});
 		});
 		it('Returns status message "deleted" if record is found', function(done) {

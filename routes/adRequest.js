@@ -17,13 +17,13 @@ router.route('/')
       size: size,
       //userID : userID
       //offeredPrice: offeredPrice,
-      interests: //var interests = fetch user interests
+      interests: {}//var interests = fetch user interests
 
     };
 
     var options = { // request options
-    host: //DSP,
-    port: //DSP PORT NUMBER,
+    host: {},//DSP,
+    port: {},//DSP PORT NUMBER,
     path: '/',
     method: 'POST',
     headers: {
@@ -37,7 +37,7 @@ router.route('/')
 
     res.on('data', function (chunk) {
 
-        var body += chunk; //save the response from the DSP in an object
+        var body = body + chunk; //save the response from the DSP in an object
     });
 });
 

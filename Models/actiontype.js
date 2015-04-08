@@ -1,8 +1,8 @@
 "use strict";
 module.exports = function(sequelize, DataTypes) {
   var ActionType = sequelize.define("ActionType", {
-    action_name: DataTypes.STRING,
-    action_weight: DataTypes.INTEGER
+    actionName: DataTypes.STRING,
+    actionWeight: DataTypes.INTEGER
   }, {
     classMethods: {
       associate: function(models) {
