@@ -1,54 +1,63 @@
 var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
-var bodyParsedUrl = bodyParser.urlencoded({ extended: true });     // to support URL-encoded bodies
+var Impression = require('../models/index.js').Impression;
+var http = require('http');
+
+
 router.route('/')
-.post(bodyParsedUrl,  function(request, response){ //post request from publisher containing user and ad info
-	
-	//var userID = request.body.userID
-	var adSize = request.body.adSize;
-	var offeredPrice = request.body.offeredPrice;
-	
+  .post(bodyParsedUrl,  function(request, response){ //post request from publisher containing user and ad info
 
-	request.on('finish', function(){ //when request is done sending, start forwarding to DSP
-
-		var data = { //data that will be sent in the request
-      
-      size: size,
-      //userID : userID
-      //offeredPrice: offeredPrice,
-      interests: {}//var interests = fetch user interests
-
+    var width = request.body.width;
+    var height = request.body.height;
+    var UserId = request.body.userId;
+    var PublisherId = request.body.publisherId;
+      //request.on('finish', function(){ //when request is done sending, start forwarding to DSP
+    var data = { //data that will be sent in the request to dsp
+      width : width,
+      userId : UserId,
+      height : heigth
+        //interests: fetch user interests.
     };
 
     var options = { // request options
-    host: {},//DSP,
-    port: {},//DSP PORT NUMBER,
-    path: '/',
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Content-Length': Buffer.byteLength(data)
+      //host: //DSP,
+      //port: //DSP PORT NUMBER,
+      path: '/',
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Content-Length': Buffer.byteLength(data)
+      }
     }
-};
-		
-		var req = http.request(options, function(res) {
-    //res.setEncoding('utf8');
 
-    res.on('data', function (chunk) {
+        // http request to send data to DSP
+    var req = http.request(options, function(res) {
+      var body;
+      res.on('data', function (chunk) { //resp data is sent in the response from dsp
+          body += chunk; 
+          var adId = chunk.adId;
+          var price = chunk.price; 
+          var ad = chunk.ad; //save the response from the DSP in an object
+      });
+  });
 
-        var body = body + chunk; //save the response from the DSP in an object
-    });
-});
+    req.write(data); // send data to dsp
+    req.end(); // end of the request
 
-req.write(data);
-req.end();
-
-
-	});
-	response.send(body);  //send the DSP's response back to the publisher
-
-
+    var impression = {
+      publisherId : PublisherId,
+      userId : UserId,
+      adId : adId
+    }
+    //Creating Impression
+    Impression.create(impression).then(function(createdImpression){
+        res.status(201).json({status : 'created'});
+      }), function(err){
+        res.status(400).json({status: 'Error', message : 'Something went wrong ' + err});
+      };
+   //send the DSP's response back to the publisher
+    response.send(body);
 });
 
 module.exports = router;
