@@ -3,6 +3,7 @@ var router = express.Router();
 var bodyParser = require('body-parser');
 var bodyParsedUrl = bodyParser.json();     // to support URL-encoded bodies
 var Impression = require('../models/index.js').Impression;
+var generatedClickUrl = require('generatedClickUrl.js');
 
 router.route('/')
 .post(bodyParsedUrl,  function(request, response){ //post request from publisher containing user and ad info
@@ -70,21 +71,10 @@ req.end();
     })
 
    //send the DSP's response back to the publisher
-  response.send(body);
+   var adHtml = generatedClickUrl.getClick();
+  response.send(adHtml);
 });
-var getClick = function (body) {
-  Impression.find(where: Sequelize.and(userId = UserId, adId = adId, publisherId = PublisherId)).then(function(impression){
-  if(!impression) res.sendStatus(404);
-  res.sendStatus(200).json({status: 'finished'});
-  var newImpressionId = impression;
- }, function(err){
-  res.sendStatus(404).json({status: 'Error', message: 'Something went wrong' + err});
- });
-  var uniqueUrl = '/clicksRoute/?' + querystring.stringify({impressionId: newImpressionId, ';', ':'});
-  var link = document.createElement("LINK");
-  link.setAttribute("href", uniqueUrl);
-  body.html.appendChild(link);
-  ;
-};
+
+
 
 module.exports = router;

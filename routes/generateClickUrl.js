@@ -1,9 +1,9 @@
 var Impression = require('../models/index.js').Impression;
-var getClick = function(req){
+var getClick = function(req, res){
 	var UserId = req.body.userId;
 	var PublisherId = req.body.publisherId;
 	var AdId = req.body.adId;
-	return {Impression.find(where: Sequelize.and(userId = UserId, adId = AdId, publisherId = PublisherId)).then(function(impression){
+	return Impression.find(where: Sequelize.and(userId = UserId, adId = AdId, publisherId = PublisherId)).then(function(impression){
   		if(!impression) res.sendStatus(404);
  		 res.sendStatus(200).json({status: 'finished'});
  		 var newImpressionId = impression;
@@ -16,5 +16,5 @@ var getClick = function(req){
  		}, function(err){
   			res.sendStatus(404).json({status: 'Error', message: 'Something went wrong' + err});
  		});
-  		}
+  		
 }
