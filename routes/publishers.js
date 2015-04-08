@@ -4,11 +4,10 @@ var urlEncoded = bodyParser.urlencoded({ extended: false });
 var uuid = require('node-uuid');
 var auth = require('../auth.js');
 var router = express.Router();
-
 var id = uuid.v4();
 var secret = uuid.v4();
 
-var Publisher = require('../models/index.js').Publisher;
+var Publisher = require('../Models/index.js').Publisher;
 var publisherBuilder = function(req, res, next) {
   var publisher = {
     name: req.body.name,
@@ -22,7 +21,7 @@ var publisherBuilder = function(req, res, next) {
 }
 
 router.route('/')
-  .post(urlEncoded, publisherBuilder, passport.authenticate('localapikey', { session: false }), function(req, res) {
+  .post(urlEncoded, publisherBuilder, auth.authenticate('localapikey', { session: false }), function(req, res) {
     var publisher = req.body.publisher;
     Publisher.create(publisher).then(function(createdPublisher) {
       res.status(201).json({status: 'created', publisherId: createdPublisher.dataValues.id});

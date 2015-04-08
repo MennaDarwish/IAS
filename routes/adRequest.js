@@ -5,7 +5,7 @@ var bodyParsedUrl = bodyParser.urlencoded({ extended: true });
 var auth = require('../auth.js')    // to support URL-encoded bodies
 
 router.route('/')
-.post(bodyParsedUrl, passport.authenticate('localapikey', { session: false }), function(request, response){ //post request from publisher containing user and ad info
+.post(bodyParsedUrl, auth.authenticate('localapikey', { session: false }), function(request, response){ //post request from publisher containing user and ad info
 	
 	//var userID = request.body.userID
 	var adSize = request.body.adSize;
@@ -17,13 +17,13 @@ router.route('/')
       size: size,
       //userID : userID
       //offeredPrice: offeredPrice,
-      interests: //var interests = fetch user interests
+      //interests: //var interests = fetch user interests
     };
 
     var options = { // request options
-      host: //DSP,
-      port: //DSP PORT NUMBER,
-      path: '/',
+      //host: //DSP,
+      //port: //DSP PORT NUMBER,
+      //path: '/',
       method: 'POST',
       headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -33,10 +33,9 @@ router.route('/')
 		
 		var req = http.request(options, function(res) {
     //res.setEncoding('utf8');
-
+    var body = '';
     res.on('data', function (chunk) {
-
-        var body += chunk; //save the response from the DSP in an object
+        body += chunk; //save the response from the DSP in an object
     });
 });
 

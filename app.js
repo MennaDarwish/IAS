@@ -6,16 +6,21 @@ var publishersRoute = require('./routes/publishers');
 var querystring = require('querystring');
 var adRequest = require('./routes/adRequest');
 var auth = require('./auth.js');
+var actionTypesRoute = require('./routes/actiontypes');
+var userActionsRoute = require('./routes/useractions');
+var morgan = require('morgan');
 
-app.configure(function() {
-	app.use(passport.initialize());
-	app.set('views', __dirname + '/views');
-	app.set('view engine', 'jade');
-	app.use(morgan('dev'));
-	app.use(express.static(__dirname + '/public'));
-	app.use('/adRequest',adRequest);
-	app.use('/users', usersRoute);
-	app.use('/publishers', publishersRoute);
-})
+app.use(auth.initialize());
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jade');
+app.use(morgan('dev'));
+app.use(express.static(__dirname + '/public'));
+app.use('/adRequest',adRequest);
+app.use('/users', usersRoute);
+app.use('/publishers', publishersRoute);
+app.use('/actiontypes', actionTypesRoute);
+app.use('/useractions', userActionsRoute);
+
+app.listen(3000);
 
 module.exports = app;

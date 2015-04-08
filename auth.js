@@ -1,10 +1,10 @@
 var passport = require('passport');
 var LocalStrategy = require('passport-localapikey').Strategy;
-var Publisher = require('../models/index.js').Publisher;
+var Publisher = require('./Models/index.js').Publisher;
 
 
 passport.use(new LocalStrategy(
-  function(req.params.apikey, done) {
+  function(req, done) {
     process.nextTick(function() {
       Publisher.find({
           where:{apikey: req.params.apikey}

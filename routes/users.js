@@ -1,5 +1,5 @@
 var express = require('express');
-var User = require('../models/index').User;
+var User = require('../Models/index').User;
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 var auth = require('../auth.js');
@@ -17,7 +17,7 @@ var userBuilder = function(req, res, next) {
   next();
 }
 router.route('/')
-  .post(jsonParser, userBuilder, passport.authenticate('localapikey', { session: false }), function(req, res) {
+  .post(jsonParser, userBuilder, auth.authenticate('localapikey', { session: false }), function(req, res) {
     var user = req.body.user;
     User.create(user).then( function(createdUser) {
         res.status(201).json({status: 'created', userId: createdUser.dataValues.id});  
