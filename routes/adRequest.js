@@ -31,8 +31,8 @@ router.route('/')
       }
     }
 
-  		  // http request to send data to DSP
-  	var req = http.request(options, function(res) {
+        // http request to send data to DSP
+    var req = http.request(options, function(res) {
       var body;
       res.on('data', function (chunk) { //resp data is sent in the response from dsp
           body += chunk; 

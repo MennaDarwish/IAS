@@ -19,41 +19,41 @@ describe('ActionTypes Route', function() {
 		it('Returns 201 status code', function(done) {
 			request(app)
 				.post('/actiontypes')
-				.send('action_name=LIKE&action_weight=5&publisherId=123')
+				.send('actionName=LIKE&actionWeight=5&publisherId=123')
 				.expect(201, done);
 		});
 
 		it('Returns application/json format', function(done) {
 			request(app)
 				.post('/actiontypes')
-				.send('action_name=LIKE&action_weight=5&publisherId=123')
+				.send('actionName=LIKE&actionWeight=5&publisherId=123')
 				.expect('Content-Type', /application\/json/, done);
 		});
 
 		it('Returns the id of the created action type', function(done) {
 			request(app)
-				.post('actiontypes')
-				.send('action_name=LIKE&action_weight=5&publisherId=123')
+				.post('/actiontypes')
+				.send('actionName=LIKE&actionWeight=5&publisherId=123')
 				.expect(function(response){
-					response.body.publisherId.should.be.above(0).and.be.a.Number
+					response.body.actionTypeId.should.be.above(0).and.be.a.Number
 				}).end(done);
 		});
 
 		it('Returns status message "created"', function(done) {
 			request(app)
 				.post('/actiontypes')
-				.send('action_name=LIKE&action_weight=5&publisherId=123')
+				.send('actionName=LIKE&actionWeight=5&publisherId=123')
 				.expect(function(response){
 					response.body.status.should.be.equal('created');
 				}).end(done);
 		});
 	});
 	
-	describe('Fetching an action type', function(done) {
+	describe('Fetching an action type', function() {
 		beforeEach(function(done) {
 			db.sequelize.sync({force: true}).then(function() {
 				db.Publisher.create({}).then(function() {
-					db.create({action_name: 'FetcherTester', publisherId:1});
+					db.ActionType.create({actionName: 'FetcherTester', publisherId:1});
 					done();
 				});
 			});
@@ -69,11 +69,11 @@ describe('ActionTypes Route', function() {
 				.expect(404, done);
 		});
 	});
-	describe('Updating an action type', function(done){
+	describe('Updating an action type', function(){
 		beforeEach(function(done) {
 			db.sequelize.sync({force: true}).then(function() {
 				db.Publisher.create({}).then(function() {
-					db.create({action_name: 'UpdatingTester', publisherId:1});
+					db.ActionType.create({actionName: 'UpdatingTester', publisherId:1});
 					done();
 				});
 			});
@@ -81,7 +81,7 @@ describe('ActionTypes Route', function() {
 		it('Returns status message "updated" if record is found', function(done) {
 			request(app)
 				.put('/actiontypes/1')
-				.send('action_name=SHARE&action_weight=4')
+				.send('actionName=SHARE&actionWeight=4')
 				.expect(function(response) {
 					response.body.status.should.be.equal('updated');
 				}).end(done);
@@ -92,11 +92,11 @@ describe('ActionTypes Route', function() {
 				.expect(404, done);
 		});
 	});
-	describe('Deleting an action type', function(done) {
+	describe('Deleting an action type', function() {
 		beforeEach(function(done) {
 			db.sequelize.sync({force: true}).then(function() {
 				db.Publisher.create({}).then(function() {
-					db.create({action_name: 'UpdatingTester', publisherId:1});
+					db.ActionType.create({actionName: 'UpdatingTester', publisherId:1});
 					done();
 				});
 			});
