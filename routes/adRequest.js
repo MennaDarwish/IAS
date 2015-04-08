@@ -4,11 +4,14 @@ var bodyParser = require('body-parser');
 var Impression = require('../models/index.js').Impression;
 var http = require('http');
 var auth = require('../auth.js') 
-
+var userLocation = require('../lib/userLocation.js');
 
 router.route('/')
   .post(bodyParser, auth.authenticate('localapikey', { session: false }), function(request, response){ //post request from publisher containing user and ad info
 
+    var ip =  request.header('x-forwarded-for') ; // ip address of the user
+    var userLocation = userLocation.getUserLocation(ip);
+  
     var width = request.body.width;
     var height = request.body.height;
     var UserId = request.body.userId;
@@ -17,8 +20,8 @@ router.route('/')
     var data = { //data that will be sent in the request to dsp
       width : width,
       userId : UserId,
-      height : heigth
-        //interests: fetch user interests.
+      height : heigth,
+      location: userLocation
     };
 
     var options = { // request options
