@@ -8,10 +8,10 @@ module.exports = {
         primaryKey: true,
         type: DataTypes.INTEGER
       },
-      action_name: {
+      actionName: {
         type: DataTypes.STRING
       },
-      action_weight: {
+      actionWeight: {
         type: DataTypes.INTEGER
       },
       publisherId: {
