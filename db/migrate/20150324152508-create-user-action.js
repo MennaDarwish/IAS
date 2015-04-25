@@ -1,27 +1,24 @@
 "use strict";
 module.exports = {
   up: function(migration, DataTypes, done) {
-    migration.createTable("Publishers", {
+    migration.createTable("UserActions", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: DataTypes.INTEGER
       },
-      name: {
-        type: DataTypes.STRING
+      actionTypeId: {
+        type: DataTypes.INTEGER,
+        references: 'ActionType',
+        referencesKey: 'id',
+        allowNull: false
       },
-      domain: {
-        type: DataTypes.STRING
-      },
-      email: {
-        type: DataTypes.STRING
-      },
-      channel: {
-        type: DataTypes.STRING
-      },
-      apikey: {
-        type: DataTypes.STRING
+      userId: {
+        type: DataTypes.INTEGER,
+        references: 'Users',
+        referencesKey: 'id',
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
@@ -34,6 +31,6 @@ module.exports = {
     }).done(done);
   },
   down: function(migration, DataTypes, done) {
-    migration.dropTable("Publishers").done(done);
+    migration.dropTable("UserActions").done(done);
   }
 };

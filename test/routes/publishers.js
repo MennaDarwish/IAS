@@ -47,7 +47,7 @@ describe('Publishers Route', function() {
     it('Returns status message "created"', function(done) {
         
       request(app)
-        .post('/users')
+        .post('/publishers')
         .send('name=FooPublisher&email=publisher@example.com&domain=http://www.publisher.com&channel=Sports')
         .expect(function(response){
           response.body.status.should.be.equal('created');
@@ -55,7 +55,15 @@ describe('Publishers Route', function() {
 
     });
 
+    it('Return apikey of the newly created publisher', function(done) {
+      request(app)
+        .post('/publishers')
+        .send('name=FooPublisher&email=publisher@example.com&domain=http://www.publisher.com&channel=Sports')
+        .expect(function(res) {
+          res.body.apikey.should.exist;
+        }).end(done);
+    });
+
   });
     
-
 });

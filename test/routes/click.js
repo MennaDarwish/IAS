@@ -2,13 +2,12 @@ var request = require('supertest');
 var app = require('../../app');
 var db = require('../../models/index');
 var should = require('should');
-
 describe('Clicks route', function(){
 	describe('creating a new click', function(){
 		beforeEach(function(done){
 			db.sequelize.sync({force: true}).then(function(){
 				done();
-			}).catch(function(err))
+			}).catch(function(err){
 			return done(err);
 		});
 	});
@@ -35,7 +34,7 @@ describe('Clicks route', function(){
         .post('/clicksRoute')
         .send('impressionId=2')
         .expect(function(response) {
-          response.body.message.should.be.equal('Redirecting to url')
+          response.body.message.should.be.equal('Redirecting to url');
         }).end(done);
 
     });
