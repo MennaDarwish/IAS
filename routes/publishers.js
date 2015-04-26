@@ -70,7 +70,7 @@ router.route('/')
 router.route('/profile')
   .get(function(req,res){
     res.render('profile',{
-      title: 'profile'
+      title: 'Publisher Profile'
     })
   });
 
@@ -83,8 +83,8 @@ router.route('/signup')
 
   router.route('/signup')
     .post(passport.authenticate('local-signup', {
-      successRedirect: '/profile',
-      failureRedirect: '/profile'
+      successRedirect: '/publishers/profile',
+      failureRedirect: '/publishers/profile'
   }));
 
 module.exports = router;
