@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> - Intelligent Ad Server</title>
+    <link rel="stylesheet" href="../public/stylesheets/style.css">
+  </head>
+  <body>
+    <form action="signup" method="post">
+      <fieldset class="account-info">
+        <label>Email
+          <input type="text" name="username" placeholder="name@domain.com" required="">
+        </label>
+        <label>Password
+          <input type="password" name="password" placeholder="password" required="">
+        </label>
+        <label>name
+          <input type="text" name="name" placeholder="password" required="">
+        </label>
+        <label>channel
+          <input type="text" name="channel" placeholder="password" required="">
+        </label>
+        <label>Domain
+          <input type="text" name="domain" placeholder="password" required="">
+        </label>
+      </fieldset>
+      <fieldset class="account-action">
+        <input type="submit" name="submit" value="Sign Up" class="btn">
+      </fieldset>
+    </form>
+    <script>
+      function validateForm() {
+      	var x = document.forms['username'].value;
+      	if(x==null || x=='') {
+      		alert('Please fill out an email address');
+      		return false;
+      	}
+      }
+    </script>
+  </body>
+</html>

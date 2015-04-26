@@ -5,6 +5,7 @@ module.exports = function(sequelize, DataTypes) {
     domain: DataTypes.STRING,
     email: DataTypes.STRING,
     channel: DataTypes.STRING,
+    //password: DataTypes.STRING, //password
     apikey: DataTypes.STRING
   }, {
     classMethods: {
