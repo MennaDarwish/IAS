@@ -38,4 +38,5 @@ app.use('/actiontypes', actionTypesRoute);
 app.use('/useractions', userActionsRoute);
 
 app.listen(3000);
+
 module.exports = app;
