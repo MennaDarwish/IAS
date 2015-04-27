@@ -61,7 +61,8 @@ router.route('/')
   .post(urlEncoded, publisherBuilder, function(req, res) {
     var publisher = req.body.publisher;
     Publisher.create(publisher).then(function(createdPublisher) {
-      res.status(201).json({status: 'created', publisherId: createdPublisher.dataValues.id, apikey: createdPublisher.dataValues.apikey});
+      res.status(201).json({status: 'created', publisherId: createdPublisher.dataValues.id, 
+        apikey: createdPublisher.dataValues.apikey});
     }, function(err) {
       res.status(404).json({status: 'ERROR', message: 'Something went wrong ' + err});
     });
@@ -86,5 +87,15 @@ router.route('/signup')
       successRedirect: '/publishers/profile',
       failureRedirect: '/publishers/profile'
   }));
+
+router.route('/signin')
+  .get(function(req, res) {
+    res.render('signin', {
+      title : 'Publisher Sign In'
+    })
+  })
+  .post(function(req, res) {
+
+  });
 
 module.exports = router;
