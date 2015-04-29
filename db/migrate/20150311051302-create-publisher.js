@@ -30,7 +30,10 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: DataTypes.DATE
-      }
+      },
+      password: {
+        type: DataTypes.STRING
+      },
     }).done(done);
   },
   down: function(migration, DataTypes, done) {
