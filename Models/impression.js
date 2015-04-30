@@ -1,8 +1,6 @@
 "use strict" ; 
 module.exports = function(sequelize, DataTypes) {
   var Impression = sequelize.define("Impression", {
-        
-        adId: DataTypes.INTEGER,
         width: DataTypes.INTEGER,
         height: DataTypes.INTEGER,
         redirectUrl: DataTypes.STRING,

@@ -4,25 +4,32 @@ var urlEncoded = bodyParser.urlencoded({extended: false});
 var jsonParser = bodyParser.json();
 var router = express.Router();
 var ActionType = require('../models/index.js').ActionType;
+var publishers = require('../routes/publishers.js');
+var passport = require('passport');
 
 var ActionTypeBuilder = function(req, res, next){
   var actionType = {
     actionName: req.body.actionName,
     actionWeight: req.body.actionWeight,
-    publisherId: req.body.publisherId
+    publisherId: req.user.id
   }
   req.body.actionType = actionType;
   next();
 }
 router.route('/')
   .post(jsonParser, ActionTypeBuilder, function(req, res){
+    if (req.isAuthenticated()){
     var actionType = req.body.actionType;
     ActionType.create(actionType).then(function(createdActionType) {
       res.status(201).json({status: 'created', actionTypeId: createdActionType.dataValues.id});
     }, function(err){
       res.status(404).json({status: 'ERROR', message: 'Something went wrong '+ err});
     });
-  });
+  }
+  else {
+      res.redirect('/publishers/homepage');
+    }
+});
 
 router.route('/:id')
   .get(function(req, res) {

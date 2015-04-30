@@ -28,6 +28,7 @@ var morgan = require('morgan');
 
 app.use(auth.initialize());
 app.set('views', __dirname + '/views');
+app.set('public',__dirname + '/public');
 app.set('view engine', 'ejs');
 app.use(morgan('dev'));
 app.use(express.static(__dirname + '/public'));

@@ -11,7 +11,6 @@ router.route('/')
 
     var ip =  request.header('x-forwarded-for') ; // ip address of the user
     var userLocation = userLocation.getUserLocation(ip);
-  
     var width = request.body.width;
     var height = request.body.height;
     var UserId = request.body.userId;
@@ -34,7 +33,6 @@ router.route('/')
           'Content-Length': Buffer.byteLength(data)
       }
     }
-
         // http request to send data to DSP
     var req = http.request(options, function(res) {
       var body;

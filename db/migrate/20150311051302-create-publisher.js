@@ -20,6 +20,9 @@ module.exports = {
       channel: {
         type: DataTypes.STRING
       },
+      password: {
+        type: DataTypes.STRING
+      },
       apikey: {
         type: DataTypes.STRING
       },

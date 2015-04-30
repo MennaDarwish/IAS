@@ -8,7 +8,9 @@ var id = uuid.v4();
 var secret = uuid.v4();
 var passport = require('passport');
 var passportLocal = require('passport-local');
-var localStrategy = require('../lib/localStrategy.js');
+var publisherAuth = require('../lib/publisherAuth.js');
+var localStrategy = require('../lib/localStrategy'); 
+var actiontypes = require('../routes/actiontypes.js');
 var Publisher = require('../Models/index.js').Publisher;
 var viewActionType = require('../lib/viewActionType.js');
 
@@ -46,6 +48,7 @@ router.route('/')
     });
   });
 
+//Salma's part (creating a profile)
 router.route('/profile')
   .get(function(req,res){
     if(req.isAuthenticated()) {
@@ -61,9 +64,23 @@ router.route('/profile')
     }
   });
 
+  //router.route('/actiontypes')
+  //.post(function(req,res){
+    // if (req.isAuthenticated()){
+      //actiontypes.create({actionName: req.body.actionName, actionWeight: req.body.actionWeight, publiserhId: req.user.id});
+      //console.log(req.user.id);
+      //res.redirect('/actiontypes'); // fix this
+    //}
+    //else {
+    //res.redirect('/publishers/homepage');
+    //}
+  //});
+
+
+//rendering view homepage whenever the publisher wants to signup
 router.route('/signup')
   .get(function(req, res) {
-    res.render('homepage', {
+    res.render('homepage.ejs', {
       title : 'Publisher Sign Up'
     })
   })
