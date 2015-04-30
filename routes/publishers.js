@@ -10,6 +10,8 @@ var passport = require('passport');
 var passportLocal = require('passport-local');
 var localStrategy = require('../lib/localStrategy.js');
 var Publisher = require('../Models/index.js').Publisher;
+var viewActionType = require('../lib/viewActionType.js');
+
 var publisherBuilder = function(req, res, next) {
   var publisher = {
     name: req.body.name,
@@ -46,9 +48,17 @@ router.route('/')
 
 router.route('/profile')
   .get(function(req,res){
-    res.render('profile',{
-      title: 'Publisher Profile'
-    })
+    if(req.isAuthenticated()) {
+      viewActionType.viewActionTypes(req.user.id).then(function(result){
+        res.render('profile',{
+          name: req.body.name,
+          title: 'Publisher Profile',
+          actiontypes: result
+        });
+      });
+    } else {
+      res.redirect('/publishers/signup');
+    }
   });
 
 router.route('/signup')
@@ -72,5 +82,11 @@ router.route('/signup')
       successRedirect: '/publishers/profile',
       failureRedirect: '/publishers/signin'
     }));
+
+  router.route('/logout')
+    .get(function(req, res) {
+      req.logout();
+      res.redirect('/publishers/signup');
+  });
 
 module.exports = router;

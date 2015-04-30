@@ -1,10 +1,34 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title> - Intelligent Ad Server</title>
-    <link rel="stylesheet" href="/stylesheets/style.css">
-  </head>
-  <body> 
-  	
-  </body>
+<html lang="en">
+<head>
+    <% include ../views/partials/head %>
+</head>
+<body class="container">
+
+    <header>
+        <% include ../views/partials/header %>
+    </header>
+
+    <main>
+        <div class="row">
+            <div class="col-sm-8">
+            
+                <div class="jumbotron">
+                    <h1><%= name %></h1>
+                    <ul>
+					    <% actiontypes.forEach(function(actiontypes) { %>
+					    	<!-- Actiontype view --> 
+					       	<li><a href="#"><%= actiontypes.actionName %> - <%= actiontypes.actionWeight %></a></li> 
+					    <% }); %>
+					</ul>
+                </div>
+                
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <% include ../views/partials/footer %>
+    </footer>
+    
+</body>
 </html>
