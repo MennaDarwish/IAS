@@ -1,0 +1,58 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   'nodemon',
+1 verbose cli   '-g' ]
+2 info using npm@2.7.4
+3 info using node@v0.12.2
+4 verbose node symlink C:\Program Files\nodejs\\node.exe
+5 silly cache add args [ 'nodemon', null ]
+6 verbose cache add spec nodemon
+7 silly cache add parsed spec { raw: 'nodemon',
+7 silly cache add   scope: null,
+7 silly cache add   name: 'nodemon',
+7 silly cache add   rawSpec: '',
+7 silly cache add   spec: '*',
+7 silly cache add   type: 'range' }
+8 verbose addNamed nodemon@*
+9 silly addNamed semver.valid null
+10 silly addNamed semver.validRange *
+11 silly addNameRange { name: 'nodemon', range: '*', hasData: false }
+12 silly mapToRegistry name nodemon
+13 silly mapToRegistry using default registry
+14 silly mapToRegistry registry https://registry.npmjs.org/
+15 silly mapToRegistry uri https://registry.npmjs.org/nodemon
+16 verbose addNameRange registry:https://registry.npmjs.org/nodemon not in flight; fetching
+17 verbose request uri https://registry.npmjs.org/nodemon
+18 verbose request no auth needed
+19 info attempt registry request try #1 at 7:42:51 PM
+20 verbose request id ec4eab2d9606b540
+21 http request GET https://registry.npmjs.org/nodemon
+22 info retry will retry, error on last attempt: Error: connect ECONNREFUSED
+23 info attempt registry request try #2 at 7:43:03 PM
+24 http request GET https://registry.npmjs.org/nodemon
+25 info retry will retry, error on last attempt: Error: connect ECONNREFUSED
+26 info attempt registry request try #3 at 7:44:05 PM
+27 http request GET https://registry.npmjs.org/nodemon
+28 verbose stack Error: connect ECONNREFUSED
+28 verbose stack     at exports._errnoException (util.js:746:11)
+28 verbose stack     at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1000:19)
+29 verbose cwd C:\Users\Lenovo\Desktop\IAS
+30 error Windows_NT 6.1.7601
+31 error argv "C:\\Program Files\\nodejs\\\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "nodemon" "-g"
+32 error node v0.12.2
+33 error npm  v2.7.4
+34 error code ECONNREFUSED
+35 error errno ECONNREFUSED
+36 error syscall connect
+37 error Error: connect ECONNREFUSED
+37 error     at exports._errnoException (util.js:746:11)
+37 error     at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1000:19)
+37 error  { [Error: connect ECONNREFUSED]
+37 error   code: 'ECONNREFUSED',
+37 error   errno: 'ECONNREFUSED',
+37 error   syscall: 'connect' }
+38 error If you are behind a proxy, please make sure that the
+38 error 'proxy' config is set properly.  See: 'npm help config'
+39 verbose exit [ 1, true ]

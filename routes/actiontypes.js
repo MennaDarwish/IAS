@@ -7,7 +7,6 @@ var ActionType = require('../models/index.js').ActionType;
 var publishers = require('../routes/publishers.js');
 var passport = require('passport');
 
-
 var ActionTypeBuilder = function(req, res, next){
   var actionType = {
     actionName: req.body.actionName,
@@ -29,9 +28,8 @@ router.route('/')
   }
   else {
       res.redirect('/publishers/homepage');
-   \ }
+    }
 });
-
 
 router.route('/:id')
   .get(function(req, res) {

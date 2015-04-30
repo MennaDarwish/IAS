@@ -11,10 +11,7 @@ var passportLocal = require('passport-local');
 var publisherAuth = require('../lib/publisherAuth.js');
 var localStrategy = require('../lib/localStrategy'); 
 var actiontypes = require('../routes/actiontypes.js');
-var createAction = require('../lib/createAction.js');
-//var profile = require('../profile.js');
 var Publisher = require('../Models/index.js').Publisher;
-
 
 var publisherBuilder = function(req, res, next) {
   var publisher = {
@@ -72,6 +69,18 @@ router.route('/createaction')
       title: 'Create Action'
     });
   });
+
+  //router.route('/actiontypes')
+  //.post(function(req,res){
+    // if (req.isAuthenticated()){
+      //actiontypes.create({actionName: req.body.actionName, actionWeight: req.body.actionWeight, publiserhId: req.user.id});
+      //console.log(req.user.id);
+      //res.redirect('/actiontypes'); // fix this
+    //}
+    //else {
+    //res.redirect('/publishers/homepage');
+    //}
+  //});
 
 //rendering view homepage whenever the publisher wants to signup
 router.route('/signup')
