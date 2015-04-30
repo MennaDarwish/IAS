@@ -3,7 +3,7 @@ var router = express.Router();
 var bodyParser = require('body-parser');
 var Impression = require('../models/index.js').Impression;
 var http = require('http');
-var auth = require('../auth.js') 
+var auth = require('../auth.js');
 var userLocation = require('../lib/userLocation.js');
 
 router.route('/')

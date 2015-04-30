@@ -3,6 +3,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 var router = express.Router();
+var auth = require('../auth.js');
 var UserAction = require('../models/index.js').UserAction;
 
 var UserActionBuilder = function(req, res, next){
