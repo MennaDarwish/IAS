@@ -28,6 +28,7 @@ var morgan = require('morgan');
 
 app.use(auth.initialize());
 app.set('views', __dirname + '/views');
+app.set('public',__dirname + '/public');
 app.set('view engine', 'ejs');
 app.use(morgan('dev'));
 app.use(express.static(__dirname + '/public'));
@@ -37,7 +38,10 @@ app.use('/publishers', publishersRoute);
 app.use('/actiontypes', actionTypesRoute);
 app.use('/useractions', userActionsRoute);
 
-app.listen(3000);
+
+app.listen(3000, function(){
+   console.log('Listening on port 4000');
+});
 
 
 module.exports = app;

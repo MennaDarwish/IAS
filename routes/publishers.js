@@ -8,7 +8,11 @@ var id = uuid.v4();
 var secret = uuid.v4();
 var passport = require('passport');
 var passportLocal = require('passport-local');
-var publisherAuth = require('../lib/publisherAuth.js')
+var publisherAuth = require('../lib/publisherAuth.js');
+var localStrategy = require('../lib/localStrategy'); 
+var actiontypes = require('../routes/actiontypes.js');
+var createAction = require('../lib/createAction.js');
+//var profile = require('../profile.js');
 
 var Publisher = require('../Models/index.js').Publisher;
 var publisherBuilder = function(req, res, next) {
@@ -23,28 +27,6 @@ var publisherBuilder = function(req, res, next) {
   next();
 }
 
-// Use the LocalStrategy within Passport to Register/"signup" advertisers.
-passport.use('local-signup', new passportLocal(
-  {passReqToCallback : true}, //allows us to pass back the request to the callback
-  function(req, username, password, done) {
-    publisherAuth.localReg(req.body.name,req.body.channel,req.body.domain,username, password)
-      .then(function (user) {
-        if (user) {
-          console.log('LOGGED IN AS: ' + user.name);
-          req.session.success = 'You are successfully logged in ' + user.name + '!';
-          done(null, user);
-        }
-        if (!user) {
-          console.log('COULD NOT LOG IN');
-          req.session.error = 'Could not log user in. Please try again.'; //inform user could not log them in
-          done(null, user);
-        }
-      })
-      .fail(function (err){
-          console.log(err.body);
-      });
-  }
-));
 //passport session setup.
 passport.serializeUser(function(user, done) {
   console.log('serializing ' + user.name);
@@ -67,24 +49,37 @@ router.route('/')
     });
   });
 
+//Salma's part (creating a profile)
 router.route('/profile')
   .get(function(req,res){
-    res.render('profile',{
-      title: 'profile'
+    res.render('profile.ejs',{
+      title : 'publisher Profile'
     })
   });
 
+  //router.route('/actiontypes')
+  //.post(function(req,res){
+    // if (req.isAuthenticated()){
+      //actiontypes.create({actionName: req.body.actionName, actionWeight: req.body.actionWeight, publiserhId: req.user.id});
+      //console.log(req.user.id);
+      //res.redirect('/actiontypes'); // fix this
+    //}
+    //else {
+    //res.redirect('/publishers/homepage');
+    //}
+  //});
+
+
+//rendering view homepage whenever the publisher wants to signup
 router.route('/signup')
   .get(function(req, res) {
-    res.render('homepage', {
+    res.render('homepage.ejs', {
       title : 'Publisher Sign Up'
     })
-  });
-
-  router.route('/signup')
-    .post(passport.authenticate('local-signup', {
-      successRedirect: '/profile',
-      failureRedirect: '/profile'
+  })
+  .post(passport.authenticate('local-signup', {
+      successRedirect: '/publishers/profile',
+      failureRedirect: '/publishers/signup'
   }));
 
 module.exports = router;
