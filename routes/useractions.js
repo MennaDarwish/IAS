@@ -15,7 +15,7 @@ var UserActionBuilder = function(req, res, next){
 }
 
 router.route('/')
-  .post(jsonParser, UserActionBuilder, function(req, res){
+  .post(jsonParser, auth.authenticate('localapikey', { session: false }), UserActionBuilder, function(req, res){
     var userAction = req.body.userAction;
     UserAction.create(userAction).then(function(createdUserAction){
       res.status(201).json({status: 'created', userActionId: createdUserAction.dataValues.id});

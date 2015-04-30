@@ -17,7 +17,7 @@ var userBuilder = function(req, res, next) {
   next();
 }
 router.route('/')
-  .post(jsonParser, userBuilder, auth.authenticate('localapikey', { session: false }), function(req, res) {
+  .post(jsonParser, auth.authenticate('localapikey', { session: false }), userBuilder, auth.authenticate('localapikey', { session: false }), function(req, res) {
     var user = req.body.user;
     User.create(user).then( function(createdUser) {
         res.status(201).json({status: 'created', userId: createdUser.dataValues.id});  
