@@ -12,6 +12,7 @@ var publisherAuth = require('../lib/publisherAuth.js');
 var localStrategy = require('../lib/localStrategy'); 
 var actiontypes = require('../routes/actiontypes.js');
 var Publisher = require('../Models/index.js').Publisher;
+var viewActionType = require('../lib/viewActionType.js');
 
 var publisherBuilder = function(req, res, next) {
   var publisher = {
@@ -93,5 +94,11 @@ router.route('/signup')
       successRedirect: '/publishers/profile',
       failureRedirect: '/publishers/signup'
   }));
+
+  router.route('/logout')
+    .get(function(req, res) {
+      req.logout();
+      res.redirect('/publishers/signup');
+  });
 
 module.exports = router;
