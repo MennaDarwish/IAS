@@ -29,28 +29,33 @@ router.route('/')
   }
   else {
       res.redirect('/publishers/homepage');
-    }
+   \ }
 });
 
 
 router.route('/:id')
   .get(function(req, res) {
-    ActionType.find(req.params.id).then(function(actionType) {
+    var id = req.params.id.substring(1);
+    ActionType.find(id).then(function(actionType) {
       if(!actionType) return res.sendStatus(404);
-      res.status(200).json(actionType.dataValues);
+      res.render ('editAction',{
+        title : 'Edit Action',
+        actiontype : actionType
+      });
     },function(err) {
       res.status(404).json({status: 'ERROR', message: 'Something went wrong ' + err});
     });
   });
 
 router.route('/:id')
-  .put(urlEncoded,function(req, res) {
-    ActionType.find(req.params.id).then(function(oldActionType) {
+  .post(urlEncoded,function(req, res) {
+    var id = req.params.id.substring(1);
+    ActionType.find(id).then(function(oldActionType) {
       if(!oldActionType) return res.sendStatus(404);
       oldActionType.setDataValue('actionName', req.body.actionName);
       oldActionType.setDataValue('actionWeight', req.body.actionWeight);
       oldActionType.save();
-      res.status(200).json({status: 'updated'}); 
+      res.redirect('../publishers/profile'); 
     }, function(err) {
       res.status(400).json({status: 'ERROR', message: 'Something went wrong ' + err});
     });
@@ -58,10 +63,11 @@ router.route('/:id')
   });
 router.route('/:id')
   .delete(function(req,res) {
-    ActionType.find(req.params.id).then(function(toBeDeletedActionType) {
+    var id = req.params.id.substring(1);
+    ActionType.find(id).then(function(toBeDeletedActionType) {
       if(!toBeDeletedActionType) return res.sendStatus(404);
       toBeDeletedActionType.destroy();
-    res.status(200).json({status: 'deleted'});
+    res.redirect('../publishers/profile');
     }, function(err) {
       res.status(400).json({status: 'ERROR', message: 'Something went wrong ' + err});
     });

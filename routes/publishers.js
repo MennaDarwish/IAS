@@ -13,8 +13,9 @@ var localStrategy = require('../lib/localStrategy');
 var actiontypes = require('../routes/actiontypes.js');
 var createAction = require('../lib/createAction.js');
 //var profile = require('../profile.js');
-
 var Publisher = require('../Models/index.js').Publisher;
+
+
 var publisherBuilder = function(req, res, next) {
   var publisher = {
     name: req.body.name,
@@ -52,23 +53,25 @@ router.route('/')
 //Salma's part (creating a profile)
 router.route('/profile')
   .get(function(req,res){
-    res.render('profile.ejs',{
-      title : 'publisher Profile'
-    })
+    if(req.isAuthenticated()) {
+      viewActionType.viewActionTypes(req.user.id).then(function(result){
+        res.render('profile',{
+          name: req.user.name,
+          title: 'Publisher Profile',
+          actiontypes: result
+        });
+      });
+    } else {
+      res.redirect('/publishers/signup');
+    }
   });
 
-  //router.route('/actiontypes')
-  //.post(function(req,res){
-    // if (req.isAuthenticated()){
-      //actiontypes.create({actionName: req.body.actionName, actionWeight: req.body.actionWeight, publiserhId: req.user.id});
-      //console.log(req.user.id);
-      //res.redirect('/actiontypes'); // fix this
-    //}
-    //else {
-    //res.redirect('/publishers/homepage');
-    //}
-  //});
-
+router.route('/createaction')
+  .get(function(req,res) {
+    res.render('createAction', {
+      title: 'Create Action'
+    });
+  });
 
 //rendering view homepage whenever the publisher wants to signup
 router.route('/signup')
