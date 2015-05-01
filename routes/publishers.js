@@ -83,6 +83,19 @@ router.route('/createaction')
     //}
   //});
 
+//rendering view signin whenever the publisher wants to signin
+  //(salma's part)
+  router.route('/signin')
+    .get(function(req,res){
+      res.render('signin' , {
+        title : 'Publisher Sign in'
+      })
+    })
+    .post(passport.authenticate('local-signin',{
+      successRedirect : '/publishers/profile',
+      failureRedirect : '/publishers/signin'
+    }));
+
 //rendering view homepage whenever the publisher wants to signup
 router.route('/signup')
   .get(function(req, res) {

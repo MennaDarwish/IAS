@@ -2,6 +2,7 @@
 <html>
   <head>
     <% include ../views/partials/head %>
+    
     <!-- <link rel="stylesheet" href="/stylesheets/style.css"> -->
   </head>
   <body>
@@ -16,6 +17,13 @@
       </fieldset>
       <fieldset class="account-action">
         <input type="submit" name="submit" value="Edit" class="btn">
+      </fieldset>
+    </form>
+
+     <form action="/actiontypes/:<%= actiontype.id %>" method="delete">
+      <fieldset class="account-action">
+        <input type="submit" name="submit" value="Delete" class="btn">
+        <!--button type="submit">Delete</button-->
       </fieldset>
     </form>
   </body>

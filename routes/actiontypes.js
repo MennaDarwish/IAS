@@ -21,7 +21,8 @@ router.route('/')
     if (req.isAuthenticated()){
     var actionType = req.body.actionType;
     ActionType.create(actionType).then(function(createdActionType) {
-      res.status(201).json({status: 'created', actionTypeId: createdActionType.dataValues.id});
+      res.redirect('../publishers/profile');    // commit -m
+      //res.status(201).json({status: 'created', actionTypeId: createdActionType.dataValues.id});
     }, function(err){
       res.status(404).json({status: 'ERROR', message: 'Something went wrong '+ err});
     });
@@ -60,16 +61,20 @@ router.route('/:id')
     
   });
 router.route('/:id')
-  .delete(function(req,res) {
-    var id = req.params.id.substring(1);
+  .delete(urlEncoded, function(req,res) {
+    console.log('HENA');
+    var id = req.params.id.substring(1, 3);
+    console.log(id);
+    console.log("hena");
     ActionType.find(id).then(function(toBeDeletedActionType) {
       if(!toBeDeletedActionType) return res.sendStatus(404);
+      console.log("ta7ty");
+      console.log(toBeDeletedActionType);
       toBeDeletedActionType.destroy();
-    res.redirect('../publishers/profile');
+      res.redirect('../publishers/profile');
     }, function(err) {
       res.status(400).json({status: 'ERROR', message: 'Something went wrong ' + err});
     });
-    
   });
 
   module.exports = router;
