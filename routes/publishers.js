@@ -14,8 +14,6 @@ var actiontypes = require('../routes/actiontypes.js');
 var Publisher = require('../Models/index.js').Publisher;
 var viewActionType = require('../lib/viewActionType.js');
 
-var ActionType = require('../models/index.js').ActionType;
-
 var publisherBuilder = function(req, res, next) {
   var publisher = {
     name: req.body.name,
