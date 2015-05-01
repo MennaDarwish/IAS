@@ -14,7 +14,7 @@ var UserActionBuilder = function(req, res, next){
   next();
 }
 
-router.route('/')
+router.route('/') //authenticating using localapikey on requests coming from servers.
   .post(jsonParser, auth.authenticate('localapikey', { session: false }), UserActionBuilder, function(req, res){
     var userAction = req.body.userAction;
     UserAction.create(userAction).then(function(createdUserAction){

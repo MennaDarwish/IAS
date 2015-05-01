@@ -31,6 +31,7 @@ router.route('/')
     }
 });
 
+//Fetching a certain action type using its id as a queryparam, then rendering the view of editing this actiontype
 router.route('/:id')
   .get(function(req, res) {
     var id = req.params.id.substring(1);
@@ -45,6 +46,7 @@ router.route('/:id')
     });
   });
 
+//Editing the action type by fetchiing it from the database using the id as a queryparam, then changing its values.
 router.route('/:id')
   .post(urlEncoded,function(req, res) {
     var id = req.params.id.substring(1);

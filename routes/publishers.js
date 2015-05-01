@@ -56,7 +56,7 @@ router.route('/')
     });
   });
 
-//Salma's part (creating a profile)
+//Creating a profile, and passing the publisher's name, and their action types to the view.
 router.route('/profile')
   .get(function(req, res) {
     if (req.isAuthenticated()) {
@@ -91,17 +91,20 @@ router.route('/signup')
     failureRedirect: '/publishers/signup'
   }));
 
+//Rendering the sign in view on the route publishers/signin
 router.route('/signin')
   .get(function(req, res) {
     res.render('signin', {
       title: 'Publisher Sign In'
     });
   })
+  //Signing in the publisher using passport's authentication
   .post(passport.authenticate('local-signin', {
     successRedirect: '/publishers/profile',
     failureRedirect: '/publishers/signin'
   }));
 
+//Logging out on the route publishers/logout
 router.route('/logout')
   .get(function(req, res) {
     req.logout();

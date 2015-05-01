@@ -6,9 +6,8 @@ var http = require('http');
 var auth = require('../auth.js');
 var userLocation = require('../lib/userLocation.js');
 
-router.route('/')
+router.route('/') //authenticating using localapikey on requests coming from servers.
   .post(bodyParser, auth.authenticate('localapikey', { session: false }), function(request, response){ //post request from publisher containing user and ad info
-
     var ip =  request.header('x-forwarded-for') ; // ip address of the user
     var userLocation = userLocation.getUserLocation(ip);
     var width = request.body.width;
