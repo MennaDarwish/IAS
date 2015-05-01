@@ -2,7 +2,6 @@ var passport = require('passport');
 var LocalStrategy = require('passport-localapikey').Strategy;
 var Publisher = require('./Models/index.js').Publisher;
 
-
 passport.use(new LocalStrategy(
   function(req, done) {
     process.nextTick(function() {
@@ -14,6 +13,6 @@ passport.use(new LocalStrategy(
       });
     });
   }
-  ));
+));
 
 module.exports = passport;

@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 var router = express.Router();
+var auth = require('../auth.js');
 var UserAction = require('../models/index.js').UserAction;
 
 var UserActionBuilder = function(req, res, next){
@@ -13,8 +14,8 @@ var UserActionBuilder = function(req, res, next){
   next();
 }
 
-router.route('/')
-  .post(jsonParser, UserActionBuilder, function(req, res){
+router.route('/') //authenticating using localapikey on requests coming from servers.
+  .post(jsonParser, auth.authenticate('localapikey', { session: false }), UserActionBuilder, function(req, res){
     var userAction = req.body.userAction;
     UserAction.create(userAction).then(function(createdUserAction){
       res.status(201).json({status: 'created', userActionId: createdUserAction.dataValues.id});

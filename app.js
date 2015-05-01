@@ -38,7 +38,7 @@ app.use('/publishers', publishersRoute);
 app.use('/actiontypes', actionTypesRoute);
 app.use('/useractions', userActionsRoute);
 
-app.listen(3000, function(){
-   console.log('Listening on port 4000');
-});
+app.listen(3000);
+console.log("Listening on port 3000");
+
 module.exports = app;

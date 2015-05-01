@@ -32,6 +32,7 @@ router.route('/')
     }
 });
 
+//Fetching a certain action type using its id as a queryparam, then rendering the view of editing this actiontype
 router.route('/:id')
   .get(function(req, res) {
     var id = req.params.id.substring(1);
@@ -46,6 +47,7 @@ router.route('/:id')
     });
   });
 
+//Editing the action type by fetchiing it from the database using the id as a queryparam, then changing its values.
 router.route('/:id')
   .post(urlEncoded,function(req, res) {
     var id = req.params.id.substring(1);
@@ -58,24 +60,20 @@ router.route('/:id')
     }, function(err) {
       res.status(400).json({status: 'ERROR', message: 'Something went wrong ' + err});
     });
-    
   });
+
   //deleting an action type, and rendering to publisher's profile after successfully deleting it.
 router.route('/:id')
   .delete(urlEncoded, function(req,res) {
-    console.log('HENA');
     var id = req.params.id.substring(1, 3);
-    console.log(id);
-    console.log("hena");
     ActionType.find(id).then(function(toBeDeletedActionType) {
       if(!toBeDeletedActionType) return res.sendStatus(404);
-      console.log("ta7ty");
       console.log(toBeDeletedActionType);
       toBeDeletedActionType.destroy();
       res.redirect('../publishers/profile');
     }, function(err) {
       res.status(400).json({status: 'ERROR', message: 'Something went wrong ' + err});
-    });
+    });  
   });
 
   module.exports = router;
