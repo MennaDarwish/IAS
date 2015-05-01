@@ -57,8 +57,8 @@ router.route('/:id')
     }, function(err) {
       res.status(400).json({status: 'ERROR', message: 'Something went wrong ' + err});
     });
-    
   });
+  
 router.route('/:id')
   .delete(function(req,res) {
     var id = req.params.id.substring(1);
