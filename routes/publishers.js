@@ -25,19 +25,16 @@ var publisherBuilder = function(req, res, next) {
   req.body.publisher = publisher;
   next();
 }
-
 //passport session setup.
 passport.serializeUser(function(user, done) {
   console.log('serializing ' + user.name);
   done(null, user);
 });
-
-
 passport.deserializeUser(function(obj, done) {
   console.log('deserializing ' + obj);
   done(null, obj);
 });
-  
+
 router.route('/')
   .post(urlEncoded, publisherBuilder, function(req, res) {
     var publisher = req.body.publisher;
@@ -47,7 +44,6 @@ router.route('/')
       res.status(404).json({status: 'ERROR', message: 'Something went wrong ' + err});
     });
   });
-
 //Salma's part (creating a profile)
 router.route('/profile')
   .get(function(req,res){
@@ -71,20 +67,7 @@ router.route('/createaction')
     });
   });
 
-  //router.route('/actiontypes')
-  //.post(function(req,res){
-    // if (req.isAuthenticated()){
-      //actiontypes.create({actionName: req.body.actionName, actionWeight: req.body.actionWeight, publiserhId: req.user.id});
-      //console.log(req.user.id);
-      //res.redirect('/actiontypes'); // fix this
-    //}
-    //else {
-    //res.redirect('/publishers/homepage');
-    //}
-  //});
-
 //rendering view signin whenever the publisher wants to signin
-  //(salma's part)
   router.route('/signin')
     .get(function(req,res){
       res.render('signin' , {
@@ -102,7 +85,7 @@ router.route('/signup')
     res.render('homepage.ejs', {
       title : 'Publisher Sign Up'
     })
-  })
+  }) //signing up using passport
   .post(passport.authenticate('local-signup', {
       successRedirect: '/publishers/profile',
       failureRedirect: '/publishers/signup'

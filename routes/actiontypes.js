@@ -16,19 +16,19 @@ var ActionTypeBuilder = function(req, res, next){
   req.body.actionType = actionType;
   next();
 }
+//Creating an actiontype and rendering to publisher's profile after successfully creating it.
 router.route('/')
   .post(jsonParser, ActionTypeBuilder, function(req, res){
-    if (req.isAuthenticated()){
+    if (req.isAuthenticated()){ //checking if the publisher is authenticated
     var actionType = req.body.actionType;
     ActionType.create(actionType).then(function(createdActionType) {
-      res.redirect('../publishers/profile');    // commit -m
-      //res.status(201).json({status: 'created', actionTypeId: createdActionType.dataValues.id});
+      res.redirect('../publishers/profile');    //redirecting to the publisher's profile when it successfully created the action.
     }, function(err){
       res.status(404).json({status: 'ERROR', message: 'Something went wrong '+ err});
     });
   }
   else {
-      res.redirect('/publishers/homepage');
+      res.redirect('/publishers/homepage'); //redirecting to the homepage when it fails to create an action.
     }
 });
 
@@ -60,6 +60,7 @@ router.route('/:id')
     });
     
   });
+  //deleting an action type, and rendering to publisher's profile after successfully deleting it.
 router.route('/:id')
   .delete(urlEncoded, function(req,res) {
     console.log('HENA');
