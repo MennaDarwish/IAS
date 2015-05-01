@@ -2,7 +2,7 @@
 <html>
   <head>
     <% include ../views/partials/head %>
-    
+
     <!-- <link rel="stylesheet" href="/stylesheets/style.css"> -->
   </head>
   <body>
@@ -22,7 +22,7 @@
 
      <form action="/actiontypes/:<%= actiontype.id %>" method="delete">
       <fieldset class="account-action">
-        <input type="submit" name="submit" value="Delete" class="btn">
+        <a href = '/actiontypes/: <%= actiontype.id%>'rel = "unfollow" data-method = "delete">Destroy</a>
         <!--button type="submit">Delete</button-->
       </fieldset>
     </form>
