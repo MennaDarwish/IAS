@@ -8,17 +8,17 @@ var bodyParser = require('body-parser');
 //Routes
 var usersRoute = require('./routes/users');
 var publishersRoute = require('./routes/publishers');
-var actionTypesRoute = require('./routes/actionTypes');
-var userActionsRoute = require('./routes/userActions');
+var actionTypesRoute = require('./routes/actiontypes');
+var userActionsRoute = require('./routes/useractions');
 var adRequest = require('./routes/adRequest');
 var querystring = require('querystring');
 
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(cookieParser());
 app.use(session({
-secret: process.env.SESSION_SECRET || 'secret',
-resave: false,
-saveUninitialized: false
+	secret: process.env.SESSION_SECRET || 'secret',
+	resave: false,
+	saveUninitialized: false
 }));
 app.use(passport.initialize());
 app.use(passport.session());

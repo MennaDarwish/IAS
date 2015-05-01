@@ -14,6 +14,8 @@ var actiontypes = require('../routes/actiontypes.js');
 var Publisher = require('../Models/index.js').Publisher;
 var viewActionType = require('../lib/viewActionType.js');
 
+var ActionType = require('../models/index.js').ActionType;
+
 var publisherBuilder = function(req, res, next) {
   var publisher = {
     name: req.body.name,
@@ -54,7 +56,7 @@ router.route('/profile')
     if(req.isAuthenticated()) {
       viewActionType.viewActionTypes(req.user.id).then(function(result){
         res.render('profile',{
-          name: req.body.name,
+          name: req.user.name,
           title: 'Publisher Profile',
           actiontypes: result
         });
@@ -64,18 +66,12 @@ router.route('/profile')
     }
   });
 
-  //router.route('/actiontypes')
-  //.post(function(req,res){
-    // if (req.isAuthenticated()){
-      //actiontypes.create({actionName: req.body.actionName, actionWeight: req.body.actionWeight, publiserhId: req.user.id});
-      //console.log(req.user.id);
-      //res.redirect('/actiontypes'); // fix this
-    //}
-    //else {
-    //res.redirect('/publishers/homepage');
-    //}
-  //});
-
+router.route('/createaction')
+  .get(function(req,res) {
+    res.render('createAction', {
+      title: 'Create Action'
+    });
+  });
 
 //rendering view homepage whenever the publisher wants to signup
 router.route('/signup')

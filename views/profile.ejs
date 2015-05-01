@@ -11,13 +11,14 @@
     <main>
         <div class="row">
             <div class="col-sm-8">
-            
                 <div class="jumbotron">
                     <h3><%= name %></h3>
                     <ul>
 					    <% actiontypes.forEach(function(actiontypes) { %>
 					    	<!-- Actiontype view --> 
-					       	<li><a href="#"><%= actiontypes.actionName %> - <%= actiontypes.actionWeight %></a></li> 
+					       	<li>
+                            <a href="../actiontypes/:<%= actiontypes.id %>"><%= actiontypes.actionName %> - <%= actiontypes.actionWeight %></a>
+                            </li> 
 					    <% }); %>
 					</ul>
                 </div>

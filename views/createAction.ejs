@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title> - Intelligent Ad Server</title>
-    <link rel="stylesheet" href="/stylesheets/style.css">
+    <% include ../views/partials/head %>
+    <!-- <link rel="stylesheet" href="/stylesheets/style.css"> -->
   </head>
   <body> 
 
   	 <form action="/actiontypes" method="post">
      <fieldset class="account-info">
-        <label>Action name
+        <label>Action Name
           <input type="text" name="actionName" placeholder="name" required="">
         </label>
-        <label>Action type
+        <label>Action Weight
           <input type="text" name="actionWeight" placeholder="weight" required="">
         </label>
       </fieldset>
