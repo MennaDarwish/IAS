@@ -11,7 +11,7 @@ var secret = uuid.v4();
 var passport = require('passport');
 var passportLocal = require('passport-local');
 var publisherAuth = require('../lib/publisherAuth.js');
-var localStrategy = require('../lib/localStrategy');
+var localStrategy = require('../lib/localStrategy'); 
 var actiontypes = require('../routes/actiontypes.js');
 var Publisher = require('../Models/index.js').Publisher;
 var viewActionType = require('../lib/viewActionType.js');
@@ -26,6 +26,7 @@ var publisherBuilder = function(req, res, next) {
   };
   req.body.publisher = publisher;
   next();
+
 };
 
 //passport session setup.
@@ -79,18 +80,6 @@ router.route('/createaction')
     });
   });
 
-//rendering view homepage whenever the publisher wants to signup
-router.route('/signup')
-  .get(function(req, res) {
-    res.render('homepage.ejs', {
-      title: 'Publisher Sign Up'
-    });
-  })
-  .post(passport.authenticate('local-signup', {
-    successRedirect: '/publishers/profile',
-    failureRedirect: '/publishers/signup'
-  }));
-
 //Rendering the sign in view on the route publishers/signin
 router.route('/signin')
   .get(function(req, res) {
@@ -110,5 +99,17 @@ router.route('/logout')
     req.logout();
     res.redirect('/publishers/signup');
   });
+
+//rendering view homepage whenever the publisher wants to signup
+router.route('/signup')
+  .get(function(req, res) {
+    res.render('homepage.ejs', {
+      title : 'Publisher Sign Up'
+    })
+  }) //signing up using passport
+  .post(passport.authenticate('local-signup', {
+      successRedirect: '/publishers/profile',
+      failureRedirect: '/publishers/signup'
+  }));
 
 module.exports = router;
