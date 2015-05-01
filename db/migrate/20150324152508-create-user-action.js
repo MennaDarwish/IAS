@@ -10,7 +10,7 @@ module.exports = {
       },
       actionTypeId: {
         type: DataTypes.INTEGER,
-        references: 'ActionType',
+        references: 'ActionTypes',
         referencesKey: 'id',
         allowNull: false
       },

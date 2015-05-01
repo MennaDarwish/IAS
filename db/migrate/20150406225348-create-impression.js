@@ -10,12 +10,6 @@ module.exports = {
         primaryKey: true,
         type: DataTypes.INTEGER
     	},
-    	adId: {
-        type: DataTypes.INTEGER,
-        references: 'Creative',
-        referencesKey: 'id',
-        allowNull: false
-        },
         width: {
         	type : DataTypes.INTEGER
         },
