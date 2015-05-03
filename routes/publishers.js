@@ -49,7 +49,7 @@ router.route('/profile')
   .get(function(req,res){
     if(req.isAuthenticated()) {
       viewActionType.viewActionTypes(req.user.id).then(function(result){
-        res.render('profile',{
+        res.render('profile1',{
           name: req.user.name,
           title: 'Publisher Profile',
           actiontypes: result
@@ -62,7 +62,7 @@ router.route('/profile')
 
 router.route('/createaction')
   .get(function(req,res) {
-    res.render('createAction', {
+    res.render('profile1', {
       title: 'Create Action'
     });
   });
@@ -70,7 +70,7 @@ router.route('/createaction')
 //rendering view signin whenever the publisher wants to signin
   router.route('/signin')
     .get(function(req,res){
-      res.render('signin' , {
+      res.render('index.ejs' , { //changed this
         title : 'Publisher Sign in'
       })
     })
@@ -82,7 +82,7 @@ router.route('/createaction')
 //rendering view homepage whenever the publisher wants to signup
 router.route('/signup')
   .get(function(req, res) {
-    res.render('homepage.ejs', {
+    res.render('index.ejs', {
       title : 'Publisher Sign Up'
     })
   }) //signing up using passport

@@ -37,7 +37,7 @@ router.route('/:id')
     var id = req.params.id.substring(1);
     ActionType.find(id).then(function(actionType) {
       if(!actionType) return res.sendStatus(404);
-      res.render ('editAction',{
+      res.render ('editaction1',{
         title : 'Edit Action',
         actiontype : actionType
       });

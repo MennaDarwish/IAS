@@ -20,11 +20,11 @@
       </fieldset>
     </form>
 
-     <form action="/actiontypes/:<%= actiontype.id %>" method="delete">
+    
       <fieldset class="account-action">
-        <a href = '/actiontypes/: <%= actiontype.id%>'rel = "unfollow" data-method = "delete">Destroy</a>
+        <%= link_to("Destroy", '/actiontypes/:'+actiontype._id, method :delete)%>
         <!--button type="submit">Delete</button-->
       </fieldset>
-    </form>
+
   </body>
 </html>
